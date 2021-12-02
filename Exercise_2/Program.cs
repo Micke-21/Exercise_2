@@ -21,6 +21,8 @@ namespace Exercise_2
                 switch (val)
                 {
                     case "0":
+                    case "Q":
+                    case "q":
                         showMeny = false;
                         //Environment.Exit(0);
                         break;
@@ -34,7 +36,7 @@ namespace Exercise_2
                         WriteTextTenTimes();
                         break;
                     case "3": // Det treje ordet
-                        ShoveThirdWord();
+                        ShowThirdWord();
                         break;
                     default:
                         Console.WriteLine();
@@ -47,7 +49,7 @@ namespace Exercise_2
 
         }
 
-        
+
         /// <summary>
         /// Shows the menu on the screen.
         /// </summary>
@@ -59,7 +61,7 @@ namespace Exercise_2
             Console.ResetColor();
             Console.WriteLine();
 
-            Console.WriteLine("Välj vad de vill göra genom att ange en siffra.");
+            Console.WriteLine("Välj vad du vill göra genom att ange motsvarande siffra.");
             Console.WriteLine();
             Console.WriteLine("1. Ungdom eller pensionär.");
             Console.WriteLine("4. Beräkna pris för ett sällskap.");
@@ -87,13 +89,13 @@ namespace Exercise_2
         /// Shows the third word in a sentence.
         /// Empty strings are removed
         /// </summary>
-        private static void ShoveThirdWord()
+        private static void ShowThirdWord()
         {
             Console.WriteLine("Ange en mening på minst tre ord");
             string mySentence = Console.ReadLine();
 
-            string[] myWords = mySentence.Trim().Split(" ");
-            myWords = myWords.Where(x => !string.IsNullOrEmpty(x)).ToArray(); // remove the blanks in the array
+            //myWords = myWords.Where(x => !string.IsNullOrEmpty(x)).ToArray(); // remove the blanks in the array. First try
+            string[] myWords = mySentence.Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries);// remove the blanks in the array
             if (myWords.Length < 3)
             {
                 Console.WriteLine("Det måste var minst tre ord i meningen!");
@@ -121,10 +123,10 @@ namespace Exercise_2
                     {
                         if (ageN >= 5 && ageN < 20)             // 5 to 19 Ungdom
                             totalCost += 80;
+                        else if (ageN >= 20 && ageN <= 64)      // 20 to 64 Stantadpris
+                            totalCost += 120;
                         else if (ageN > 64 && ageN < 101)       // 65 to 100 Pensionär
                             totalCost += 90;
-                        else if (ageN <= 64 && ageN >= 20)      // 20 to 64 Stantadpris
-                            totalCost += 120;
                     }
                     else
                     {
